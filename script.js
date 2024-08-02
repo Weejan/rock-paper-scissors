@@ -1,23 +1,10 @@
 let para = document.querySelector("p");
 let humanScore = 0 , computerScore = 0;
-
 function getComputerChoice(){
     let choices = ['rock','paper','scissors']
     let choice = choices[Math.floor(Math.random() * choices.length)]
-    console.log(choice)
     return choice
 }
-
-// function getHumanChoice(){
-//     let btnChoice = document.querySelectorAll(".btn");
-//     let choice;
-//     btnChoice.forEach((item)=> {item.addEventListener("click",()=>{
-//         choice = item.value;
-//         //para.textContent = `You choose ${choice}!`;
-//     })})
-//     return choice;
-//     //document.body.appendChild(para);
-//     }
 
 function playRound(humanSelection, computerSelection) {
 
@@ -34,13 +21,8 @@ function playRound(humanSelection, computerSelection) {
         para.textContent = `\nYou lose! ${computerSelection} beats ${humanSelection}`;
         computerScore++;
     }
-
-    para.textContent  = `\n Scores - Human: ${humanScore}, Computer: ${computerScore}`;
+    para.textContent  += `\nScores - Human: ${humanScore}, Computer: ${computerScore}`;
 }
-
-
-
-
 
 function main(){
     let btnChoice = document.querySelectorAll(".btn");
@@ -50,18 +32,15 @@ function main(){
         console.log(choice)
         computer = getComputerChoice();
         playRound(choice,computer)
-        //para.textContent = `You choose ${choice}!`;
+        if (humanScore == 5 || computerScore == 5){
+            btnChoice.forEach((item)=> item.disabled = true)
+        }
+    let resetBtn = document.getElementById("reset")
+        resetBtn.addEventListener('click',()=>{humanScore = 0,computerScore = 0
+            btnChoice.forEach((item)=> item.disabled = false)
+            para.textContent  = ` Fresh start!\n Scores - Human: ${humanScore}, Computer: ${computerScore}`;
+        })
     })})
     
-
-    // let computer,human;
-    //     human = getHumanChoice();
-    //     console.log(human)
-    // if (human != undefined){
-    //     computer = getComputerChoice();
-    //     playRound(human,computer)
-    //     para.textContent += `${human},${computer}`
-    // }
-
 }
 main()
